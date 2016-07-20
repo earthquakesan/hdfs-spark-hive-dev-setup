@@ -9,11 +9,13 @@ spark_home := $(addsuffix tools/spark-1.6.2-bin-without-hadoop, $(current_dir))
 # Configuration and start/stop commands #
 #########################################
 
-download_tools:
+download:
 	mkdir -p ${current_dir}tools
 	cd ${current_dir}tools; wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz && tar -xvf hadoop-2.7.2.tar.gz && rm -rf hadoop-2.7.2.tar.gz
 	cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-1.6.2-bin-without-hadoop.tgz && tar -xvf spark-1.6.2-bin-without-hadoop.tgz && rm -rf spark-1.6.2-bin-without-hadoop.tgz
 	cd ${current_dir}tools; wget http://www-us.apache.org/dist/hive/hive-2.1.0/apache-hive-2.1.0-bin.tar.gz && tar -xvf apache-hive-2.1.0-bin.tar.gz && rm -rf apache-hive-2.1.0-bin.tar.gz
+
+configure: configure_hadoop configure_spark configure_hive
 
 configure_hadoop:
 	#install Ubuntu dependencies
@@ -85,9 +87,9 @@ start_hive_beeline_client:
 # Interactive shells #
 ######################
 
-start_spark_pyspark:
+pyspark:
 	IPYTHON=1 ${spark_home}/bin/pyspark
-start_spark_scala:
+spark_shell:
 	${spark_home}/bin/spark-shell
 
 #########################################
