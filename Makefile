@@ -15,12 +15,15 @@ configure_hadoop:
 	sudo apt-get install -y ssh rsync
 	#Set JAVA_HOME explicitly
 	sed -i "s#.*export JAVA_HOME.*#export JAVA_HOME=${JAVA_HOME}#g" ${hadoop_home}/etc/hadoop/hadoop-env.sh 
+	#Set HADOOP_CONF_DIR explicitly
+	sed -i "s#.*export HADOOP_CONF_DIR.*#export HADOOP_CONF_DIR=${hadoop_home}/etc/hadoop#" ${hadoop_home}/etc/hadoop/hadoop-env.sh
 	#define fs.default.name in core-site.xml
 	sed -i '/<\/configuration>/i <property><name>fs.default.name</name><value>hdfs://localhost:9000</value></property>' ${hadoop_home}/etc/hadoop/core-site.xml
+	sed -i '/<\/configuration>/i <property><name>hadoop.tmp.dir</name><value>file://${current_dir}data/hadoop-tmp</value></property>' ${hadoop_home}/etc/hadoop/core-site.xml
 	#set dfs.replication and dfs.namenode.name.dir
 	mkdir -p ${current_dir}data/hadoop
 	sed -i '/<\/configuration>/i <property><name>dfs.replication</name><value>1</value></property>' ${hadoop_home}/etc/hadoop/hdfs-site.xml
-	sed -i '/<\/configuration>/i <property><name>dfs.namenode.name.dir</name><value>${current_dir}data/hadoop</value></property>' ${hadoop_home}/etc/hadoop/hdfs-site.xml
+	sed -i '/<\/configuration>/i <property><name>dfs.namenode.name.dir</name><value>file://${current_dir}data/hadoop</value></property>' ${hadoop_home}/etc/hadoop/hdfs-site.xml
 	${hadoop_home}/bin/hdfs namenode -format
 	ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
 	cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
@@ -35,7 +38,7 @@ stop_hadoop:
 configure_spark:
 	# Change logging level from INFO to WARN
 	cp ${spark_home}/conf/log4j.properties.template ${spark_home}/conf/log4j.properties
-	sed "s#log4j.rootCategory=INFO, console#log4j.rootCategory=WARN, console#g" ${spark_home}/conf/log4j.properties
+	sed -i "s#log4j.rootCategory=INFO, console#log4j.rootCategory=WARN, console#g" ${spark_home}/conf/log4j.properties
 	# Set up Spark environment variables
 	echo 'export SPARK_LOCAL_IP=127.0.0.1' >> ${spark_home}/conf/spark-env.sh
 	echo 'export HADOOP_CONF_DIR="${hadoop_home}/etc/hadoop"'>> ${spark_home}/conf/spark-env.sh
