@@ -35,7 +35,7 @@ git clone https://github.com/earthquakesan/hdfs-spark-hive-dev-setup ./
 ### Download HDFS/Spark/Hive binaries
 
 ```
-make download_tools
+make download
 ```
 
 After this step you should have tools/ folder with the following structure:
@@ -46,12 +46,12 @@ After this step you should have tools/ folder with the following structure:
     └── spark-1.6.2-bin-without-hadoop
 ```
 
-### Configure HDFS
-
+### Configure HDFS/Spark/Hive
 ```
-make configure_hadoop
+make configure
 ```
 
+### Start HDFS
 Start hadoop DFS (distributed file system), basically 1 namenode and 1 datanode:
 ```
 make start_hadoop
@@ -59,12 +59,7 @@ make start_hadoop
 
 Open your browser and go to localhost:50070. If you can open the page and see 1 datanode registered on your namenode, then hadoop setup is finished.
 
-### Configure Spark
-
-```
-make configure_spark
-```
-
+### Start Spark
 Start local Spark cluster:
 ```
 make start_spark
@@ -72,12 +67,7 @@ make start_spark
 
 Open your browser and go to localhost:8080. If you can open the page and see 1 spark-worker registered with spark-master, then spark setup is finished.
 
-### Configure Hive
-
-```
-make configure_hive
-```
-
+### Start Hive
 Run the Hive server (it will occupy the terminal session, providing server logs to it):
 ```
 make start_hive_server
