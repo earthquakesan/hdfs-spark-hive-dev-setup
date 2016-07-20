@@ -4,6 +4,11 @@ hive_home := $(addsuffix tools/apache-hive-2.1.0-bin, $(current_dir))
 hadoop_home := $(addsuffix tools/hadoop-2.7.2, $(current_dir))
 spark_home := $(addsuffix tools/spark-1.6.2-bin-without-hadoop, $(current_dir))
 
+
+#########################################
+# Configuration and start/stop commands #
+#########################################
+
 download_tools:
 	mkdir -p ${current_dir}tools
 	cd ${current_dir}tools; wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz && tar -xvf hadoop-2.7.2.tar.gz && rm -rf hadoop-2.7.2.tar.gz
@@ -75,3 +80,22 @@ start_hive_server:
 	${hive_home}/bin/hiveserver2 --hiveconf hive.server2.enable.doAs=false
 start_hive_beeline_client:
 	${hive_home}/bin/beeline -u jdbc:hive2://localhost:10000
+
+######################
+# Interactive shells #
+######################
+
+start_spark_pyspark:
+	IPYTHON=1 ${spark_home}/bin/pyspark
+start_spark_scala:
+	${spark_home}/bin/spark-shell
+
+#########################################
+# Inject bin/ directories into the PATH #
+#########################################
+
+activate:
+	echo "export PATH=${PATH}:${spark_home}/bin:${hadoop_home}/bin:${hive_home}/bin" >> activate
+	chmod a+x activate
+	echo "Run the following command in your terminal:"
+	echo "source activate"
