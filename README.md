@@ -91,6 +91,7 @@ make start_hive_beeline_client
 Execute some queries to see if the Hive server works properly:
 ```
 CREATE TABLE pokes (foo INT, bar STRING);
+LOAD DATA LOCAL INPATH './tools/apache-hive-2.1.0-bin/examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
 DESCRIBE pokes;
 ```
 
