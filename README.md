@@ -46,7 +46,7 @@ After this step you should have tools/ folder with the following structure:
     └── spark-1.6.2-bin-without-hadoop
 ```
 
-### Configure HDFS/Spark/Hive
+### Configure HDFS/Spark
 ```
 make configure
 ```
@@ -66,6 +66,12 @@ make start_spark
 ```
 
 Open your browser and go to localhost:8080. If you can open the page and see 1 spark-worker registered with spark-master, then spark setup is finished.
+
+### Configure Hive
+Hadoop should be running for Hive configuration:
+```
+make configure_hive
+```
 
 ### Start Hive
 Run the Hive server (it will occupy the terminal session, providing server logs to it):
