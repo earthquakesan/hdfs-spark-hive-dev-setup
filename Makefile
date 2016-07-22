@@ -15,7 +15,7 @@ download:
 	cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-1.6.2-bin-without-hadoop.tgz && tar -xvf spark-1.6.2-bin-without-hadoop.tgz && rm -rf spark-1.6.2-bin-without-hadoop.tgz
 	cd ${current_dir}tools; wget http://www-us.apache.org/dist/hive/hive-2.1.0/apache-hive-2.1.0-bin.tar.gz && tar -xvf apache-hive-2.1.0-bin.tar.gz && rm -rf apache-hive-2.1.0-bin.tar.gz
 
-configure: configure_hadoop configure_spark configure_hive
+configure: configure_hadoop configure_spark
 
 configure_hadoop:
 	#install Ubuntu dependencies
