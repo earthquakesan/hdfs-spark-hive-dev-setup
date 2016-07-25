@@ -2,7 +2,7 @@ mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(dir $(mkfile_path))
 hive_home := $(addsuffix tools/apache-hive-2.1.0-bin, $(current_dir))
 hadoop_home := $(addsuffix tools/hadoop-2.7.2, $(current_dir))
-spark_home := $(addsuffix tools/spark-1.6.2-bin-without-hadoop, $(current_dir))
+spark_home := $(addsuffix tools/spark-1.6.2-bin-hadoop2.6-hive, $(current_dir))
 
 
 #########################################
@@ -12,7 +12,7 @@ spark_home := $(addsuffix tools/spark-1.6.2-bin-without-hadoop, $(current_dir))
 download:
 	mkdir -p ${current_dir}tools
 	cd ${current_dir}tools; wget http://www-us.apache.org/dist/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz && tar -xvf hadoop-2.7.2.tar.gz && rm -rf hadoop-2.7.2.tar.gz
-	cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-1.6.2-bin-without-hadoop.tgz && tar -xvf spark-1.6.2-bin-without-hadoop.tgz && rm -rf spark-1.6.2-bin-without-hadoop.tgz
+	cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-1.6.2-bin-hadoop2.6-hive.tgz && tar -xvf spark-1.6.2-bin-hadoop2.6-hive.tgz && rm -rf spark-1.6.2-hadoop2.6-hive.tgz
 	cd ${current_dir}tools; wget http://www-us.apache.org/dist/hive/hive-2.1.0/apache-hive-2.1.0-bin.tar.gz && tar -xvf apache-hive-2.1.0-bin.tar.gz && rm -rf apache-hive-2.1.0-bin.tar.gz
 
 configure: configure_hadoop configure_spark
