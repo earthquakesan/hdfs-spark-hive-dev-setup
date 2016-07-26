@@ -83,6 +83,8 @@ configure_hive:
 	echo '<property><name>datanucleus.autoCreateSchema</name><value>false</value></property>' >> ${hive_home}/conf/hive-site.xml
 	echo '<property><name>hive.metastore.uris</name><value>thrift://127.0.0.1:9083</value></property>' >> ${hive_home}/conf/hive-site.xml
 	echo '</configuration>' >> ${hive_home}/conf/hive-site.xml
+	#Copy hive-stie.xml to Spark -- necessary to run Spark apps with configured metastore
+	cp ${hive_home}/conf/hive-site.xml ${spark_home}/conf/
 	#export environment variables
 	echo 'export HADOOP_HOME="${hadoop_home}"' >> ${hive_home}/conf/hive-env.sh
 	echo 'export HIVE_HOME="${hive_home}"' >> ${hive_home}/conf/hive-env.sh
