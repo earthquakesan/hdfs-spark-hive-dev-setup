@@ -2,8 +2,7 @@ mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(dir $(mkfile_path))
 hive_home := $(addsuffix tools/apache-hive-2.1.0-bin, $(current_dir))
 hadoop_home := $(addsuffix tools/hadoop-2.7.2, $(current_dir))
-spark_home := $(addsuffix tools/spark-1.6.2-bin-hadoop2.6-hive, $(current_dir))
-
+spark_home := $(addsuffix tools/spark-2.0.0-bin, $(current_dir))
 
 #########################################
 # Configuration and start/stop commands #
@@ -17,7 +16,7 @@ download_hadoop:
 
 download_spark:
 	mkdir -p ${current_dir}tools
-	cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-1.6.2-bin-hadoop2.6-hive.tgz && tar -xvf spark-1.6.2-bin-hadoop2.6-hive.tgz && rm -rf spark-1.6.2-bin-hadoop2.6-hive.tgz
+	cd ${current_dir}tools; wget https://dl.dropboxusercontent.com/u/4882345/packages/spark-2.0.0-bin.tgz && tar -xvf spark-2.0.0-bin.tgz && rm -rf spark-2.0.0-bin.tgz
 
 download_hive:
 	mkdir -p ${current_dir}tools
